@@ -8,8 +8,8 @@ Whether you have five or five thousand servers, Chef lets you manage them all by
 * xMatters ChefAutomateGenericWebhook Communication Plan (see zip file in above files) imported into xMatters or created in xMatters.
 
 # Files
-* [Chef-Generic-Webhook_IB.js](Chef-Generic-Webhook_IB.js) - The javascript file to be pasted into a Inbound Integration Builder. It takes the payload from Chef and formats the content to match the xMatters Form requirements and creates an xMatters Event. 
-* [ChefAutomateGenericWebhook.zip](ChefAutomateGenericWebhook.zip) - The comm plan (if needed) that has all the cool scripts and email format and such. 
+* [Chef-Compliance-Webhook_IB.js](Chef-Generic-Webhook_IB.js) - The javascript file to be pasted into a Inbound Integration Builder. It takes the payload from Chef and formats the content to match the xMatters Form requirements and creates an xMatters Event. 
+* [ChefAutomatecomplianceWebhook.zip](ChefAutomateGenericWebhook.zip) - The comm plan (if needed) that has all the cool scripts and email format and such. 
 
 # Installation
 
@@ -18,29 +18,88 @@ Whether you have five or five thousand servers, Chef lets you manage them all by
 2. The attached delivery.rb file is an example of the configured settings pointing to a xMatters instance.
 3. The following are the ruby lines in the file:
       ``` 
-          notifier['enable']
-          notifier['user_webhook_url'] 
+      notifier['enable']
+      notifier['compliance_user_webhook_url']
           
       ```
 4. The following is a sample notification message body:
 
-      ``` 
-      
-      {
-              "automate_fqdn":"automate.test",
-              "failure_snippet":"Chef client run failure on [chef-server.test] centos-runner-1.test : https://failure_url \n Failure Reason\n",
-             "exception_backtrace":"A long string with the backtrace that contains the error and \n",
-             "exception_title":"Error Resolving Cookbooks for Run List:",
-             "exception_message":"412 \"Precondition Failed\"",
-             "automate_failure_url":"automate.test/long/url/that-takes-you-to-run-failure-page",
-             "timestamp_utc":"2017-06-19T19:58:35.000000Z",
-             "start_time_utc":"2017-06-19T19:58:35.000000Z",
-             "end_time_utc":"2017-06-19T19:58:35.000000Z",
-             "node_name":"centos-runner-1.test",
-             "type":"node_failure"
-        }
-        
-        ```
+  ``` 
+  {
+  "automate_fqdn":"automate.test",
+  "failure_snippet":"Chef Inspec found a critical control failure on [chef-client.solo](automate.test/viz/#/compliance)",
+  "automate_failure_url":"automate.test/viz/#/compliance",
+  "node_name":"chef-client.solo",
+  "node_uuid":"aaaaaaaa-709a-475d-bef5-zzzzzzzzzzzz",
+  "version":"1",
+  "number_of_critical_tests":5,
+  "total_number_of_tests":15,
+  "total_number_of_failed_tests":6,
+  "number_of_failed_critical_tests":1,
+  "total_number_of_passed_tests":6,
+  "total_number_of_skipped_tests":3,
+  "inspec_version":"1.24.0",
+  "failed_critical_profiles":[
+     {
+       "name":"mylinux-failure-success",
+       "version":"2.7.0",
+       "sha256":"18010edfae35cd7702bff057f3d7fbb507e97dc43f74cd4b5ef5d7d51d37e035",
+       "controls":[
+          {
+            "id":"Checking /etc/missing6.rb existence",
+            "impact":0.7,
+            "results":[
+               {
+                 "status":"failed",
+                 "code_desc":"File /etc/missing6.rb mode should eq 666",
+                 "run_time":0.00104,
+                 "message":"\nexpected: 666\n     got: nil\n\n(compared using ==)\n"
+               }
+            ],
+            "status":"failed",
+            "metadata":{
+               "title":"Check /etc/missing6.rb",
+               "desc":"File test in failure-success.rb",
+               "impact":0.7,
+               "refs":"[]",
+               "tags":"{}",
+               "code":"control 'Checking /etc/missing6.rb existence' do\n  impact 0.7\n  title \"Check /etc/missing6.rb\"\n  desc \"File test in failure-success.rb\"\n  describe file('/etc/missing6.rb') do\n    its('mode') { should eq 666 }\n  end\nend\n",
+               "source_location":{
+                  "ref":"/Users/lancefinfrock/workspace/automate/data_generator/chef-client/cache/cookbooks/test-cookbook/recipes/../files/default/compliance_profiles/mylinux-failure-success/controls/failure-success.rb",
+                  "line":29
+               },
+               "id":"Checking /etc/missing6.rb existence"
+            }
+          }
+       ],
+       "metadata":{
+          "type":"inspec_profile",
+          "@version":"1",
+          "@timestamp":"2017-06-19T20:07:13.860Z",
+          "name":"mylinux-failure-success",
+          "title":"Mylinux Failure Success",
+          "maintainer":"Chef Software, Inc.",
+          "copyright":"Chef Software, Inc.",
+          "copyright_email":"support@chef.io",
+          "license":"Apache 2 license",
+          "summary":"Demonstrates the use of InSpec Compliance Profile",
+          "version":"2.7.0",
+          "supports":[
+             {
+               "os-family":"unix"
+             }
+          ],
+          "attributes":[],
+          "sha256":"18010edfae35cd7702bff057f3d7fbb507e97dc43f74cd4b5ef5d7d51d37e035",
+          "doc_version":"1"
+       }
+     }
+  ],
+  "type":"compliance_failure",
+  "end_time_utc":"2017-06-19T20:07:13.000000Z",
+  "timestamp_utc":"2017-06-19T20:07:13.000000Z"
+}
+```
         
 5. Restart the Chef Automate server after saving the delivery.rb file.
 
