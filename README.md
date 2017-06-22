@@ -1,4 +1,4 @@
-# Chef Generic Webhook
+# Chef Automate Compliance Webhook
 Whether you have five or five thousand servers, Chef lets you manage them all by turning infrastructure into code. Infrastructure described as code is flexible, versionable, human-readable, and testable. This specific integration provides details on integrating with Chef Automate.  A second set of instructions exists for automating with Chef Server (no Automate).
 
 # Pre-Requisites
