@@ -120,6 +120,10 @@ Whether you have five or five thousand servers, Chef lets you manage them all by
 <kbd>
 <img src="media/devicemessage2.png">
 </kbd>
+</kbd>
+<kbd>
+<img src="media/devicemessage3.png">
+</kbd>
 
 # Troubleshooting
 View xMatters Activity Stream to determine issues with Chef payload or connectivity.
