@@ -4,7 +4,9 @@ Whether you have five or five thousand servers, Chef lets you manage them all by
 ---------
 
 <kbd>
+  <a href="https://support.xmatters.com/hc/en-us/community/topics">
   <img src="https://github.com/xmatters/xMatters-Labs/raw/master/media/disclaimer.png">
+  </a>
 </kbd>
 
 ---------
@@ -14,11 +16,11 @@ Whether you have five or five thousand servers, Chef lets you manage them all by
 * Chef Automate v 3.x or higher.  The Compliance Webhook is new functionality.  See the following Chef documentation for instructions on how to configure the Notifier settings in the delivery.rb file of the Chef Automate server.  [delivery.rb Chef Help Docs](http://chef-web-docs-notify.s3-website-us-west-2.amazonaws.com/config_rb_delivery.html#notifier-settings)
 * Chef Automate Compliance Webhook configured.  
 * xMatters account - If you don't have one, [get one](https://www.xmatters.com)!
-* xMatters ChefAutomateComplianceWebhook Communication Plan (see zip file in above files) imported into xMatters or created in xMatters.
+* xMatters ChefAutomateComplianceWebhook Workflow (see zip file in above files) imported into xMatters or created in xMatters.
 
 # Files
 * [Chef-Compliance-Webhook_IB.js](Chef-Generic-Webhook_IB.js) - The javascript file to be pasted into a Inbound Integration Builder. It takes the payload from Chef and formats the content to match the xMatters Form requirements and creates an xMatters Event. 
-* [ChefAutomatecomplianceWebhook.zip](ChefAutomateGenericWebhook.zip) - The comm plan (if needed) that has all the cool scripts and email format and such. 
+* [ChefAutomatecomplianceWebhook.zip](ChefAutomateGenericWebhook.zip) - The Workflow (if needed) that has all the cool scripts and email format and such. 
 
 # Installation
 
@@ -115,7 +117,7 @@ Whether you have five or five thousand servers, Chef lets you manage them all by
 
 
 ## xMatters set up
-1. Import the Communication Plan (see files).  If this step is done you can skip steps 2.
+1. Import the Workflow (see files).  If this step is done you can skip steps 2.
 2. Create (In|Out)bound integration and add the code from the Chef-Compliance-Webhook_IB.js file.
 3. Configure the xMatters Endpoints. [xMatters Endpoints](https://help.xmatters.com/OnDemand/xmodwelcome/integrationbuilder/configure-endpoints.htm)
 4. Create a chef group in xMatters and add your self to the group. [xMatters Groups](https://help.xmatters.com/OnDemand/groups/groups.htm).  The name of the chef group can be changed in the Inbound IB script.
